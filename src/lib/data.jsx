@@ -1,21 +1,3 @@
-export const days = [
-    "Monday",
-    "Tuesday",
-    "Wednasday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday"
-];
-
-export const PrayerTimes = [
-    "Fajr",
-    "Sunrise",
-    "Dhuhr",
-    "Asr",
-    "Maghrib",
-    "Isha"
-]
 
 export const daysOfRamadan = [
     "Ramadan 1 - (Mar 1)",
@@ -47,19 +29,5 @@ export const daysOfRamadan = [
     "Ramadan 27 - (Mar 27)",
     "Ramadan 28 - (Mar 28)",
     "Ramadan 29 - (Mar 29)",
-]
-
-export const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Nov",
-    "Dec"
 ];
 

@@ -1,43 +1,42 @@
 import React from 'react'
-import { CiLocationOn } from "react-icons/ci";
-import { days, months } from "../lib/data";
 import { useState, useEffect } from 'react';
+import moment from 'moment-timezone';
 
-const LocalTime = () => {
-    const date = new Date();
-    const month = date.getMonth();
-    const day = date.getDate();
-    const year = date.getFullYear();
 
-    const [currentTime, setCurrentTime] = useState(new Date());
+const LocalTime = ({ timeZone }) => {
+    
+    const [localTime, setLocalTime] = useState(null);
+    const [localDate, setLocalDate] = useState(null);
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            setCurrentTime(new Date());
-        }, 1000);
+        const updateTime = () => {
+            if (timeZone) {
+                const now = moment.tz(timeZone);
 
-        return () => clearInterval(intervalId);
-    }, []);
+                setLocalTime(now.format('HH:mm:ss')); // time format
+                setLocalDate(now.format('ddd, MMM DD, YYYY')); //date format
+            }
+        };
 
-    const options = {
-        hour12 : false,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-    };
+        updateTime();
+
+        const intervalId = setInterval(updateTime, 1000) //updated every second
+
+        return () => clearInterval(intervalId); //clear interval on unmount
+    }, [timeZone]);
+
 
     return (
         <div>
-            <div className='flex flex-row justify-center items-center m-8'>
-                <p className='flex text-center justify-center items-center'> <CiLocationOn size={30} /> Location: </p>
-                <input type="text" className='border-blue-400 border-2 rounded-2xl' />
-            </div>
-            <div className='flex flex-col justify-center items-center'>
-                <h2 className='text-6xl mb-4'> {currentTime.toLocaleTimeString(undefined, options)}</h2>
+            <div className='flex flex-col justify-center items-center mt-4'>
+                <h2 className='text-5xl mb-4'> 
+                    {localTime ? localTime : 'Loading...'}
+                </h2>
                 <p className='mb-8'>
-                    {months[month]} {day},  {year}
+                    {localDate ? localDate : ''}
                 </p>
             </div>
+
         </div>
     )
 }
